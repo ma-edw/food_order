@@ -26,6 +26,9 @@ uvicorn main:app --reload
 ```
 The backend will be available at http://127.0.0.1:8000/docs
 
+### Backend data
+The menu is stored in menu_all.csv, which can be amended to change the menu from Mon to Sun.
+
 
 ## Frontend
 ### Install required packages with npm for frontend
@@ -42,4 +45,4 @@ Run the frontend with the following command:
 ```
 npm start
 ```
-The backend will be available at http://localhost:3000/
+The frontend will be available at http://localhost:3000/
