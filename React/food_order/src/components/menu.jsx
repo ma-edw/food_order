@@ -28,40 +28,6 @@ const Menu = () => {
         fetchIfFishMeal();
     }, []);
 
-    // const handleFishMeal = () => {
-    //     // Backend
-    //     api.post("/fishmeal");
-        
-    //     // Change instructions to for user - frontend
-    //     // if (stdMealSet === true) {
-    //     //     setStdMealSet(false);
-    //     // } else {
-    //     //     setStdMealSet(true);
-    //     // };
-
-    //     // fetchIfFishMeal();
-    //     setStdMealSet(!stdMealSet);
-    //     setMinMax();
-    // };
-
-    // set min and max no. of boxes to check (based on mealset, default std mealset)
-    // const [maxToCheck, setMaxToCheck] = useState(Constants.max_std_num_checked);
-    // const [minToCheck, setMinToCheck] = useState(Constants.min_std_num_checked);
-    // const setMinMax = () => {
-    //     fetchIfFishMeal();
-    //     if (stdMealSet === true) {
-    //         setMinToCheck(Constants.min_std_num_checked);
-    //         setMaxToCheck(Constants.max_std_num_checked);
-    //     } else {
-    //         setMinToCheck(Constants.min_fish_num_checked);
-    //         setMaxToCheck(Constants.max_fish_num_checked);
-    //     };
-    // };
-    // useEffect(() => {
-    //     setMinMax();
-    // }, []);
-
-
     // Day of the menu - backend
     const [day, setDay] = useState();
     const weekNumbers = ["一", "二", "三", "四", "五", "六", "日"];
@@ -129,7 +95,6 @@ const Menu = () => {
         const response = await api.get("/legit");
         setIsLegit(response.data);
     };
-    // useEffect not needed if default 否 already? less accurate (will be default value but not from backend)
     useEffect(() => {
         fetchLegit();
     }, []);
@@ -203,10 +168,6 @@ const Menu = () => {
                         <span> 加特飲 ${Constants.drink_price}</span>
                     </div>
                     <br />
-                    
-                    {/* debug */}
-                    {/* <p>Legit: {isLegit} Std: {stdMealSet ? "Std" : "Fish    "}</p>
-                    <p>range: {minToCheck}-{maxToCheck}</p> */}
 
                     <p style={{ color: 'red' }}>{errorMessage}</p>
                     

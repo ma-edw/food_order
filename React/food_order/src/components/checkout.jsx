@@ -13,7 +13,6 @@ const Checkout = () => {
         if (isFish === "是") {
             setisFishMeal(true);
         };
-        // setAddSideDish(response.data);
     }
     useEffect(() => {
         fetchisFishMeal();
@@ -124,22 +123,6 @@ const Checkout = () => {
                         ))}                        
                     </table>
                     <br />
-                    
-                    {/* {addSideDish === "是" || upgradeDrink === "是" ? 
-                        <>
-                            <table>
-                                <th>附加</th>
-                                {addSideDish === "是" ?
-                                    <tr>加小食</tr>
-                                : ""}
-                                {upgradeDrink === "是" ?
-                                    <tr>加特飲</tr>
-                                : ""}
-                            </table>
-                            <br />
-                        </>
-                    : ""} */}
-                    
 
                     <table>
                         <th>價錢</th>
@@ -173,8 +156,7 @@ const Checkout = () => {
                                 </tr>
                             </>
                         : ""}
-
-                        {/* <hr width="100%" /> */}
+                        
                         <br />
                         <tr>
                             <td>合共</td>

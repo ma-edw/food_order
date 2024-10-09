@@ -52,30 +52,13 @@ FISH_DISH: str = "豆豉蒸倉魚"
 UPGRADE_DRINK_PRICE = 6
 ADD_SIDEDISH_PRICE = 25
 
-# def contains_fish(dishes: list[str]) -> bool:
-#     for dish in dishes:
-#         if FISH_SET_KEYWORD in dish:
-#             return True
-#     return False
-
-# class Dish(BaseModel):
 class Dish(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     name: str
     wday: Annotated[int, Interval(ge=0, le=7)] 
     
-    # @computed_field
-    # def is_meat(self) -> bool:
-    #     _meat_keywords: List[str] = ['牛', '豬', '雞', '魚', '羊', '叉燒', '肉', '班腩', '鴨', '鵝']
-    #     for m in _meat_keywords:
-    #         if m in self.name:
-    #             return(True)
-    #     return(False)
-    
 def today_weekday() -> int:
     weekday = datetime.datetime.today().weekday() + 1 # 1-7 for Mon-Sun
-    # if weekday > 5:
-    #     weekday = 5
     return weekday
 ###################################################################################################
 # Importing data
@@ -86,16 +69,13 @@ else:
     engine = create_engine(SQLDB_PATH)
     with open(CSV_FILE, 'r', encoding='utf-8') as file_descriptor:
         csv_content: list[str] = file_descriptor.readlines()
-    # 移除最後一行
     csv_content.pop()
     pattern = re.compile(r"[0-9\. \n\*]+")
     fields_list: list[str] = []
     for line in csv_content:
         fields_list.append(line.split(","))
-    # 問題1：*在這裡的用處；zip的功能
     dish_by_wday = list(zip(*fields_list))
 
-    # 把Dish儲存到SQLite
     SQLModel.metadata.create_all(engine)
     with Session(engine) as session:
         for i in range(len(dish_by_wday)):
@@ -122,9 +102,7 @@ class Order_old(SQLModel, table=False):
     upgrade_drink: bool
     fish_meal: bool
     
-    # def __init__(self, dishes : List[str] = list()) -> None:
     def __init__(self) -> None:
-        # self.wday = datetime.datetime.today().weekday() + 1 # 1-7 for Mon-Sun
         self.wday = today_weekday()
         self.menu = self.set_menu(weekday=self.wday)
         self.dishes = []
@@ -135,7 +113,6 @@ class Order_old(SQLModel, table=False):
         # set menu
         self.set_menu(self.wday)
     
-    # def reset(self, dishes : List[str] = list()):
     def reset(self):
         self.wday = today_weekday()
         self.menu = self.set_menu(weekday=self.wday)
@@ -180,7 +157,6 @@ class Order(SQLModel, table=False):
         # set menu
         self.set_menu(self.wday)
     
-    # def reset(self, dishes : List[str] = list()):
     def reset(self):
         self.wday = today_weekday()
         self.menu = self.set_menu(weekday=self.wday)
@@ -222,7 +198,6 @@ class Order(SQLModel, table=False):
             
     def add_dish(self, dish: str) -> None:                        
         # Add dish if it is in menu and not already ordered
-        # if dish not in self.menu and dish in self.dishes:
         if dish not in self.dishes:
             self.dishes.append(dish)
     
@@ -247,8 +222,6 @@ class Order(SQLModel, table=False):
             return False
         if len(self.dishes) > self.max_dishes():
             return False
-        # if contains_fish(self.dishes) and len(self.dishes) > MAX_NO_OF_FISH_DISHES:
-        #     return False
         return True
     
     def num_extra_dishes(self):
@@ -260,12 +233,7 @@ class Order(SQLModel, table=False):
             return FISH_BASE_PRICE
         else:
             return BASE_PRICE
-    
-    # base price + price for extra dishes
-    # @computed_field
-    # def combined_price(self):
-    #     return self.base_price() + self.num_extra_dishes() * PERDISH_PRICE
-    
+        
     def extra_dishes_price(self):
         return self.num_extra_dishes() * PERDISH_PRICE
     
@@ -275,8 +243,6 @@ class Order(SQLModel, table=False):
         price: int = 0
         if not self.legit():
             raise Exception('Order not legit')  
-        
-        # price = self.base_price() + (len(self.dishes) - self.min_dishes()) * PERDISH_PRICE
         price = self.base_price() + self.extra_dishes_price()
         if self.add_sidedish:
             price += ADD_SIDEDISH_PRICE
@@ -301,13 +267,6 @@ def reset() -> None:
 @app.get("/day/")
 def get_wday():
     return order.wday
-
-# @app.post("/day/{today}")
-# def set_menu(today: Annotated[int, Interval(ge=1, le=5)]) -> str:
-#     try:
-#         order.set_menu(today)
-#     except Exception as e:
-#         return(str(e))
 
 @app.get("/meal_sets/")
 def get_meal_sets() -> List[List[str]]:
@@ -392,10 +351,6 @@ def get_base_price() -> int:
 @app.get("/extra_dishes")
 def get_dishes() -> int:
     return order.num_extra_dishes()
-
-# @app.get("/combined_price")
-# def get_combined_price() -> int:
-#     return order.combined_price()
 
 @app.get("/extra_dishes_price")
 def get_extra_dishes_price() -> int:
