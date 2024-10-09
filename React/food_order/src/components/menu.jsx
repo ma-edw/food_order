@@ -104,7 +104,6 @@ const Menu = () => {
 
     // Add checked dishes - backend
     const handleSubmit = () => {
-        // fetchLegit();
         // Proceed to checkout page if order is legit 
         if (isLegit === "是") {
             setErrorMessage("")
