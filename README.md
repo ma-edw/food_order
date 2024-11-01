@@ -4,7 +4,9 @@ This food ordering app involves FastAPI for backend and React for frontend.
 </br>
 
 ![alt text](image-8.png)
+</br>
 ![alt text](image-9.png)
+</br>
 ![alt text](image-10.png)
 
 ### Copy the code to local directory
