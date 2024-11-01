@@ -3,6 +3,10 @@
 This food ordering app involves FastAPI for backend and React for frontend.
 </br>
 
+![alt text](image-8.png)
+![alt text](image-9.png)
+![alt text](image-10.png)
+
 ### Copy the code to local directory
 Run the following command in your local folder after logging in with your Github account:
 ```
