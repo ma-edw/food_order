@@ -1,10 +1,3 @@
-"""
-# Venturenix Lab: Advanced Generative AI: End to end development with LLMs
-### Lession 2: Introduction to Python (2)
-
-Goal: Rewrite the data models of thisthisrice using SQLModel and store the data on sqlite
-"""
-# 匯入模組
 import re
 from typing import Annotated, List, Optional
 from annotated_types import Interval
@@ -32,16 +25,12 @@ app.add_middleware(
     allow_headers=['*']    
 )
 
-# 定義環境及"constant"
 CSV_FILE = 'menu_all.csv'
 DB_PATH = 'menu_all.db'
 SQLDB_PATH = 'sqlite:///' + DB_PATH
-# PGSQL_PATH = "postgresql://ps_user:SecurePassword@localhost/ps_db"
 
-# FISH_SET_KEYWORD: str = '蒸倉魚'
 MIN_NO_OF_DISHES: int = 2
 MAX_NO_OF_DISHES: int = 4
-# MIN_NO_OF_FISH_DISHES: int = 1
 MAX_NO_OF_FISH_DISHES: int = 3
 BASE_PRICE: int  = 35
 PERDISH_PRICE: int = 8
